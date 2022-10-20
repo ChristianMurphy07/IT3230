@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+  <head>
+  <h2> Christian Murphy - IT2320 - Lab 5<H2></H2>
+  </head>
+  <body>  
+    <div id="stopwatch">00:00:0</div>
+    <button id="start">Start</button>
+    <button id="pause">Stop</button>
+    <button id="reset">Reset</button>
+    
+    </div>
+
+    <script>
+      const watch = document.querySelector("#stopwatch");
+      // time variables
+      var minutes = 0;
+      var seconds = 0;
+      var tenths = 0;
+      var timer;
+      
+        //starting Timer
+        function startTimer(){
+        clearInterval(timer);
+        timer = setInterval(() => {
+          tenths += 10;
+
+          let dateTimer = new Date(tenths);
+
+          watch.innerHTML = 
+          ('0'+dateTimer.getUTCMinutes()).slice(-2) + ':' +
+          ('0'+dateTimer.getUTCSeconds()).slice(-2) + ':' +
+          ('0'+dateTimer.getUTCMilliseconds()).slice(-3,-1);
+        }, 10);
+      }
+
+        //stopping Timer
+        function stopTimer() {
+        clearInterval(timer);
+      }
+
+        //resetting Timer      
+        function resetTimer(){
+        setInterval(timer)
+        tenths = 0;
+        watch.innerHTML = "00:00:0";
+      }
+
+      document.addEventListener('click', (e) => {
+        const el = e.target;
+        
+        //timer functions
+        if(el.id === 'start') startTimer();
+        if(el.id === 'pause') stopTimer();
+        if(el.id === 'reset') resetTimer();
+      })
+    </script>
+  </body>
+</html>
