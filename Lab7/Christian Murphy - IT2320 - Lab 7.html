@@ -1,48 +1,40 @@
 <html>
-<h2>Walking Guy - Lab 7 - Christian Murphy</h2>
+<head>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <style>
-
-.img {
-width: 400px;
-height: 200px;
-position:absolute;
-top:50px;
-left:0;
-display: none;
-}
-
+	.img {
+		width: 400px;
+		height: 200px;
+		position:absolute;
+		top:50px;
+		left:0;
+		display: none;
+	}
 </style>
-
+</head>
 <body>
+<h2>Walking Guy - Lab 7 - Christian Murphy</h2>
 <button id="start">Start</button>
 <div >
 <img id="img" src="guy-walking.gif" width="400" />
 </div> </body>
-
 <script>
-
 $(document).ready(function(){
-var img = $('#img');
-$("#start").click(function(){
-img.fadeIn(1000, function(){
-img.animate({
-left: $(window).width() - 400
-}, 3000, function(){
-img.animate({
-left: '0px'
-}, 3000, function(){
-img.fadeOut(1000);
-
-})
-
+	var img = $('#img');
+	img.hide();
+	$("#start").click(function(){
+		img.fadeIn(1000, function(){
+			img.animate({
+			left: ($(window).width() - 400)+"px"
+			}, 3000, function(){
+				img.animate({
+				left: '0px'
+				}, 3000, function(){
+					img.fadeOut(1000);
+				})
+			});
+		});
+	});
 });
-
-});
-
-});
-
-});
-
 </script>
-
 </html>
