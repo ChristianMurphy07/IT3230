@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Christian Murphy - Lab 9 - Weather API </title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+</script>
+</head>
+
+<body>
+<input type="text" placeholder="Enter Your Zip Code" id="zipCode"/>
+<button> Submit </button>
+<table id="description">
+
+<tr>
+<td>City:</td>
+<td id="city"></td>
+</tr>
+
+<tr>
+<td>Condition:</td>
+<td id="condition"></td>
+</tr>
+
+<tr>
+<td>Temparature:</td>
+<td id="temparature"></td>
+</tr>
+
+<tr>
+<td>Wind Speed & Direction:</td>
+<td id="speed"></td>
+</tr>
+
+<tr>
+<td>Humidity:</td>
+<td id="humidity"></td>
+</tr>
+
+<tr>
+<td>Min Temparature:</td>
+<td id="mintemparature"></td>
+</tr>
+    
+<tr>
+<td>Max Temparature:</td>
+<td id="maxtemparature"></td>
+</tr>
+
+</table>
+<script>
+function convertTemp(val) {
+var temp = (((val - 273.15) * 9) / 5) + 32;
+temp = temp.toFixed(2);
+return temp;
+}
+
+$(document).ready(function () {
+$("button").click(function () {
+
+
+var zipCode = $('#zipCode').val();
+var url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",us&appid=41a11f54e9583b60a04edf6804d6e84d&parameter=value";
+$.ajax({
+method: "GET",
+url: url,
+dataType: "json"
+})
+.done(function (weatherResponse) {
+
+
+$('#city').html(weatherResponse.name);
+$("#condition").html(weatherResponse.weather[0].main);
+$('#temparature').html(parseInt(convertTemp(weatherResponse.main.temp)));
+$('#speed').html(parseInt(weatherResponse.wind.speed));
+$('#humidity').html(weatherResponse.main.humidity);
+$('#mintemparature').html(parseInt(convertTemp(weatherResponse.main.temp_min)));
+$('#maxtemparature').html(parseInt(convertTemp(weatherResponse.main.temp_max)));
+});
+});
+});
+
+</script>
+</body>
+</html>
